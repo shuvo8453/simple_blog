@@ -1,4 +1,7 @@
 @extends('layouts.master')
+@section('css')
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+@endsection
 
 @section('content')
 <div class="heading-page header-text">
@@ -18,20 +21,46 @@
 <div class="container mt-5">
     <form>
         <div class="form-group">
-          <label for="exampleInputEmail1">Email address</label>
-          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          <label for="category_name">Category Name</label>
+          <input type="text" class="form-control" id="category_name" placeholder="Enter category name">
         </div>
-        {{-- <div class="form-group">
-          <label for="exampleInputPassword1">Password</label>
-          <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-        </div> --}}
-        <div class="form-check">
-          <input type="checkbox" class="form-check-input" id="exampleCheck1">
-          <label class="form-check-label" for="exampleCheck1">Check me out</label>
+
+        <div class="form-group">
+          <label for="slug">slug</label>
+          <input type="text" class="form-control" id="slug" placeholder="Enter category slug">
         </div>
+
+        <div class="form-group">
+            <label for="text">Post Description</label>
+            <textarea class="form-control" id="text" rows="3"></textarea>
+        </div>
+
+        <div class="custom-file form-group">
+            <input type="file" class="custom-file-input" id="validatedCustomFile" required>
+            <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
+            <div class="invalid-feedback">Example invalid custom file feedback</div>
+        </div>
+        <div class="form-group mt-4">
+            <select class="form-control tags" multiple="multiple"></select>
+        </div>
+
+
         <button type="submit" class="btn btn-primary">Submit</button>
+
       </form>
 </div>
 
+@endsection
+
+@section('script')
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $('.tags').select2({
+    tags: true,
+    tokenSeparators: [',', ' ']
+});
+    });
+</script>
 @endsection
