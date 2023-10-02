@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Services\PostService;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -12,7 +13,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        return view('create-post');
+
     }
 
     /**
@@ -20,7 +21,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('create-post');
     }
 
     /**
@@ -28,7 +29,23 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // $request->validate([
+        //     'name' => 'required|string|exists:categories,name',
+        //     'slug' => 'required|string|exists:categories,slug',
+        //     'text' => 'required|string',
+        //     'tags' => 'nullable|array|exists:tags,name',
+        //     'image' => 'nullable|image|max:2048'
+        // ]);
+
+        $service = new PostService();
+        // dd(12, $service);
+
+
+        $category = $service->getCategory($request->name);
+        $slug = $service->getSlug($request->name, $request->slug);
+        $post = $service->createPost($request->only(['text','image']), $category, $slug);
+        $service->createTags($post, $request->tags);
+
     }
 
     /**

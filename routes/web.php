@@ -26,4 +26,6 @@ Route::view('/contact', 'contact');
 
 Route::view('/post-details', 'post-details');
 
-Route::get('/create-post',[PostController::class, 'index'])->name('create-post');
+Route::get('/create-post',[PostController::class, 'create'])->name('create-post');
+
+Route::post('/store',[PostController::class, 'store'])->name('store-post');
